@@ -1,8 +1,22 @@
+use Earthc::Ast;
 use Quartzc::Grammar;
+use Quartzc::Lower;
 
 sub MAIN
 {
     my $source = slurp;
-    my $ast = parse-quartz $source;
-    say $ast;
+
+    my @ast = parse-quartz $source;
+    say ｢-｣ x 80;
+    say @ast;
+
+    my $d = Earthc::Ast::Definitions.new;
+
+    lower $d, $_ for @ast;
+    say ｢-｣ x 80;
+    say $d;
+
+    $d.finalize;
+    say ｢-｣ x 80;
+    say $d;
 }

@@ -29,6 +29,12 @@ class ExpressionStatement
     has $.expression;
 }
 
+class ReturnStatement
+    does Statement
+{
+    has $.value;
+}
+
 ################################################################################
 # Expressions
 

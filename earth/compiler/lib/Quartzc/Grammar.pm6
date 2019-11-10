@@ -38,6 +38,11 @@ my grammar Grammar
         <expression> ‘;’
     }
 
+    rule statement:sym<return>
+    {
+        ‘return’ <expression> ‘;’
+    }
+
     ############################################################################
     # Expressions
 
@@ -97,6 +102,13 @@ my class Actions
     {
         make Quartzc::Ast::ExpressionStatement.new(
             expression => $<expression>.made,
+        );
+    }
+
+    method statement:sym<return>($/)
+    {
+        make Quartzc::Ast::ReturnStatement.new(
+            value => $<expression>.made,
         );
     }
 
