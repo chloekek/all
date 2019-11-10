@@ -94,6 +94,7 @@ my grammar Grammar
 
     token type:sym<fundamental>
     {
+        || top || bottom
         || u? [ byte || short || int || long || cent ]
         || float || double || real
     }
