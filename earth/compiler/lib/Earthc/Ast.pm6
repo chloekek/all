@@ -45,16 +45,18 @@ class Definitions
 
 class SubroutineDefinition
 {
+    # TODO: The names should be registers, not strings.
     has @.parameters;
+
     has Type $.return-type;
 
     # For an elaboration on why this is mutable, see the documentation for the
-    # C<finalize-definitions> routine.
+    # C<finalize> routine.
     has $.body is rw;
 }
 
 ################################################################################
-# Statements
+# Instructions
 
 role Instruction
 {
