@@ -1,5 +1,7 @@
 unit module Quartzc::Grammar;
 
+use Quartzc::Ast;
+
 my grammar Grammar
 {
     rule TOP
@@ -20,9 +22,10 @@ my grammar Grammar
 
     rule definition:sym<subroutine>
     {
-        ‘sub’ <identifier>
-        ‘(’ [ <type> <identifier> ]* %% ‘,’ ‘-->’ <type> ‘)’
-        <block>
+        ‘sub’ $<name>=<identifier>
+        ‘(’ [ $<parameter-type>=<type> $<parameter-name>=<identifier> ]* %% ‘,’
+            ‘-->’ $<return-type>=<type> ‘)’
+        $<body> = <block>
     }
 
     ############################################################################
@@ -67,10 +70,69 @@ my grammar Grammar
 
 my class Actions
 {
+    method TOP($/)
+    {
+        make $<definition>.map(*.made);
+    }
+
+    ############################################################################
+    # Definitions
+
+    method definition:sym<subroutine>($/)
+    {
+        my @parameters = $<parameter-type>.map(*.made) Z
+                         $<parameter-name>.map(~*);
+        make Quartzc::Ast::SubroutineDefinition.new(
+            name        => ~$<name>,
+            parameters  => @parameters,
+            return-type => $<return-type>.made,
+            body        => $<body>.made,
+        );
+    }
+
+    ############################################################################
+    # Statements
+
+    method statement:sym<expression>($/)
+    {
+        make Quartzc::Ast::ExpressionStatement.new(
+            expression => $<expression>.made,
+        );
+    }
+
+    ############################################################################
+    # Expressions
+
+    method expression:sym<variable>($/)
+    {
+        make Quartzc::Ast::VariableExpression.new(
+            variable => ~$/,
+        );
+    }
+
+    ############################################################################
+    # Blocks
+
+    method block($/)
+    {
+        make Quartzc::Ast::Block.new(
+            statements => $<statement>.map(*.made),
+        );
+    }
+
+    ############################################################################
+    # Types
+
+    method type:sym<fundamental>($/)
+    {
+        make Quartzc::Ast::FundamentalType.new(
+            which => ~$/,
+        );
+    }
 }
 
 sub parse-quartz(Str() $source)
     is export
 {
-    Grammar.parse($source, actions => Actions);
+    Grammar.parse($source, actions => Actions).made;
 }
