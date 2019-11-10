@@ -1,5 +1,7 @@
 unit module Quartzc::Ast;
 
+class Block {…}
+
 ################################################################################
 # Definitions
 
@@ -46,6 +48,12 @@ class VariableExpression
     does Expression
 {
     has $.variable;
+}
+
+class DoExpression
+    does Expression
+{
+    has Block $.block;
 }
 
 ################################################################################

@@ -69,6 +69,17 @@ multi lower(
     Earthc::Ast::RegisterValue.new(register => 0);
 }
 
+multi lower(
+    Earthc::Ast::Definitions:D $d,
+    Earthc::Ast::SsaBuilder:D $b,
+    Quartzc::Ast::DoExpression:D $q,
+    --> Earthc::Ast::Value:D
+)
+    is export
+{
+    lower($d, $b, $q.block);
+}
+
 ################################################################################
 # Blocks
 

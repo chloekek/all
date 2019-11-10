@@ -53,6 +53,11 @@ my grammar Grammar
         <identifier>
     }
 
+    rule expression:sym<do>
+    {
+        ‘do’ <block>
+    }
+
     ############################################################################
     # Blocks
 
@@ -119,6 +124,13 @@ my class Actions
     {
         make Quartzc::Ast::VariableExpression.new(
             variable => ~$/,
+        );
+    }
+
+    method expression:sym<do>($/)
+    {
+        make Quartzc::Ast::DoExpression.new(
+            block => $<block>.made,
         );
     }
 
