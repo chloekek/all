@@ -58,10 +58,9 @@ my grammar Grammar
 
     proto rule type {*}
 
-    rule type:sym<fundamental>
+    token type:sym<fundamental>
     {
-        || byte  || short  || int  || long  || cent
-        || ubyte || ushort || uint || ulong || ucent
+        || u? [ byte || short || int || long || cent ]
         || float || double || real
     }
 }
