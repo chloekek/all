@@ -143,14 +143,14 @@ class SsaBuilder
         $!ssa.basic-blocks{$!next++} = $!current;
     }
 
-    method new-block(::?CLASS:D: --> Int:D)
+    method new-basic-block(::?CLASS:D: --> Int:D)
     {
         my $id = $!next++;
         $!ssa.basic-blocks{$id} = BasicBlock.new;
         $id;
     }
 
-    method set-block(::?CLASS:D: Int:D $id --> Nil)
+    method set-basic-block(::?CLASS:D: Int:D $id --> Nil)
     {
         $!current = $!ssa.basic-blocks{$id};
     }

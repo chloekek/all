@@ -49,20 +49,20 @@ multi lower(
     is export
 {
     my $condition   = lower($d, $b, $q.condition);
-    my $if-true-bb  = $b.new-block;
-    my $if-false-bb = $b.new-block;
-    my $end-if      = $b.new-block;
+    my $if-true-bb  = $b.new-basic-block;
+    my $if-false-bb = $b.new-basic-block;
+    my $end-if      = $b.new-basic-block;
     $b.build-conditional-branch($condition, $if-true-bb, $if-false-bb);
 
-    $b.set-block($if-true-bb);
+    $b.set-basic-block($if-true-bb);
     my $if-true-v = lower($d, $b, $q.if-true);
     $b.build-unconditional-branch($end-if);
 
-    $b.set-block($if-false-bb);
+    $b.set-basic-block($if-false-bb);
     my $if-false-v = lower($d, $b, $q.if-false);
     $b.build-unconditional-branch($end-if);
 
-    $b.set-block($end-if);
+    $b.set-basic-block($end-if);
 
     # TODO: Insert φ instruction???
     $if-true-v;
@@ -76,9 +76,9 @@ multi lower(
 )
     is export
 {
-    my $loop = $b.new-block;
+    my $loop = $b.new-basic-block;
     $b.build-unconditional-branch($loop);
-    $b.set-block($loop);
+    $b.set-basic-block($loop);
     lower($d, $b, $q.body);
     $b.build-unconditional-branch($loop);
 }
@@ -91,22 +91,22 @@ multi lower(
 )
     is export
 {
-    my $condition-bb = $b.new-block;
-    my $body-bb      = $b.new-block;
-    my $end-bb       = $b.new-block;
+    my $condition-bb = $b.new-basic-block;
+    my $body-bb      = $b.new-basic-block;
+    my $end-bb       = $b.new-basic-block;
 
     $b.build-unconditional-branch($condition-bb);
 
-    $b.set-block($condition-bb);
+    $b.set-basic-block($condition-bb);
     my $condition-v = lower($d, $b, $q.condition);
     $b.build-conditional-branch($condition-v, $body-bb, $end-bb);
 
-    $b.set-block($body-bb);
+    $b.set-basic-block($body-bb);
     lower($d, $b, $q.body);
     $b.build-unconditional-branch($condition-bb);
 
     # TODO: Return unit value.
-    $b.set-block($end-bb);
+    $b.set-basic-block($end-bb);
     Earthc::Ast::RegisterValue.new(register => 0);
 }
 
