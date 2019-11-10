@@ -1,0 +1,8 @@
+use Quartzc::Grammar;
+
+sub MAIN
+{
+    my $source = slurp;
+    my $ast = parse-quartz $source;
+    say $ast;
+}

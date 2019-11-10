@@ -1,0 +1,6 @@
+{
+    "name": "earthc",
+    "provides": {
+        "Quartzc::Grammar": "lib/Quartzc/Grammar.pm6"
+    }
+}
