@@ -86,6 +86,33 @@ multi lower(
 multi lower(
     Earthc::Ast::Definitions:D $d,
     Earthc::Ast::SsaBuilder:D $b,
+    Quartzc::Ast::WhileStatement:D $q,
+    --> Earthc::Ast::Value:D
+)
+    is export
+{
+    my $condition-bb = $b.new-block;
+    my $body-bb      = $b.new-block;
+    my $end-bb       = $b.new-block;
+
+    $b.build-unconditional-branch($condition-bb);
+
+    $b.set-block($condition-bb);
+    my $condition-v = lower($d, $b, $q.condition);
+    $b.build-conditional-branch($condition-v, $body-bb, $end-bb);
+
+    $b.set-block($body-bb);
+    lower($d, $b, $q.body);
+    $b.build-unconditional-branch($condition-bb);
+
+    # TODO: Return unit value.
+    $b.set-block($end-bb);
+    Earthc::Ast::RegisterValue.new(register => 0);
+}
+
+multi lower(
+    Earthc::Ast::Definitions:D $d,
+    Earthc::Ast::SsaBuilder:D $b,
     Quartzc::Ast::ReturnStatement:D $q,
     --> Earthc::Ast::Value:D
 )

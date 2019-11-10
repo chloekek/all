@@ -52,6 +52,13 @@ class ReturnStatement
     has $.value;
 }
 
+class WhileStatement
+    does Statement
+{
+    has Expression $.condition;
+    has Block      $.body;
+}
+
 ################################################################################
 # Expressions
 

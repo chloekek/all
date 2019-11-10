@@ -55,6 +55,11 @@ my grammar Grammar
         ‘return’ <expression> ‘;’
     }
 
+    rule statement:sym<while>
+    {
+        ‘while’ <expression> <block>
+    }
+
     ############################################################################
     # Expressions
 
@@ -146,6 +151,14 @@ my class Actions
     {
         make Quartzc::Ast::ReturnStatement.new(
             value => $<expression>.made,
+        );
+    }
+
+    method statement:sym<while>($/)
+    {
+        make Quartzc::Ast::WhileStatement.new(
+            condition => $<expression>.made,
+            body      => $<block>.made,
         );
     }
 
