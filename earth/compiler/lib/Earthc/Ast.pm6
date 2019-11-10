@@ -104,6 +104,16 @@ class RegisterValue
     # TODO: Include type of register.
 }
 
+class TopValue
+    does Value
+{
+}
+
+class BottomValue
+    does Value
+{
+}
+
 class BlobValue
     does Value
 {

@@ -74,6 +74,19 @@ multi translate(Earthc::Ast::RegisterValue:D $e --> Str:D)
     mangle $e.register;
 }
 
+multi translate(Earthc::Ast::TopValue:D $e --> Str:D)
+{
+    # It doesn’t matter which value we pick here, since top values are not
+    # scrutinizable. However, don’t pick nil, since that value erases table
+    # entries.
+    ｢0｣;
+}
+
+multi translate(Earthc::Ast::BottomValue:D $e --> Str:D)
+{
+    ｢nil｣;
+}
+
 multi translate(Earthc::Ast::BlobValue:D $e --> Str:D)
 {
     ｢"｣ ~ $e.bytes.map({sprintf ｢\x%02X｣, $_}).join ~ ｢"｣;

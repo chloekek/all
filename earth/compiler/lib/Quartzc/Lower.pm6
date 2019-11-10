@@ -105,9 +105,8 @@ multi lower(
     lower($d, $b, $q.body);
     $b.build-unconditional-branch($condition-bb);
 
-    # TODO: Return unit value.
     $b.set-basic-block($end-bb);
-    Earthc::Ast::RegisterValue.new(register => 0);
+    Earthc::Ast::TopValue.new;
 }
 
 multi lower(
