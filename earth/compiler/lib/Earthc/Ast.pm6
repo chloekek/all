@@ -96,9 +96,14 @@ class BasicBlock
     has @.instructions;
 }
 
-#| SsaBuilder resembles IRBuilder in LLVM.
+#| SsaBuilder allows you to append instructions onto basic blocks, and basic
+#| blocks onto SSAs.
+#|
+#| SsaBuilder also takes care of checking types and inserting coercions.
 class SsaBuilder
 {
+    # TODO: Must be aware of signature of enclosing subroutine.
+
     has Ssa        $.ssa;
     has BasicBlock $!current;
     has Int        $!next;
@@ -120,6 +125,7 @@ class SsaBuilder
 
     method build-return(::?CLASS:D: Value:D $value --> Value:D)
     {
+        # TODO: Insert coercion.
         my $instruction = ReturnInstruction.new(:$value);
         self!build($instruction);
     }
