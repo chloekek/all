@@ -38,6 +38,13 @@ my grammar Grammar
         <expression> ‘;’
     }
 
+    rule statement:sym<if>
+    {
+        ‘if’ $<condition>=<expression>
+               $<if-true>=<block>
+        ‘else’ $<if-false>=<block>
+    }
+
     rule statement:sym<return>
     {
         ‘return’ <expression> ‘;’
@@ -111,6 +118,15 @@ my class Actions
     {
         make Quartzc::Ast::ExpressionStatement.new(
             expression => $<expression>.made,
+        );
+    }
+
+    method statement:sym<if>($/)
+    {
+        make Quartzc::Ast::IfStatement.new(
+            condition => $<condition>.made,
+            if-true   => $<if-true>.made,
+            if-false  => $<if-false>.made,
         );
     }
 

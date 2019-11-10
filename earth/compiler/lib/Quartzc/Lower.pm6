@@ -43,6 +43,34 @@ multi lower(
 multi lower(
     Earthc::Ast::Definitions:D $d,
     Earthc::Ast::SsaBuilder:D $b,
+    Quartzc::Ast::IfStatement:D $q,
+    --> Earthc::Ast::Value:D
+)
+    is export
+{
+    my $condition   = lower($d, $b, $q.condition);
+    my $if-true-bb  = $b.new-block;
+    my $if-false-bb = $b.new-block;
+    my $end-if      = $b.new-block;
+    $b.build-conditional-branch($condition, $if-true-bb, $if-false-bb);
+
+    $b.set-block($if-true-bb);
+    my $if-true-v = lower($d, $b, $q.if-true);
+    $b.build-unconditional-branch($end-if);
+
+    $b.set-block($if-false-bb);
+    my $if-false-v = lower($d, $b, $q.if-false);
+    $b.build-unconditional-branch($end-if);
+
+    $b.set-block($end-if);
+
+    # TODO: Insert φ instruction???
+    $if-true-v;
+}
+
+multi lower(
+    Earthc::Ast::Definitions:D $d,
+    Earthc::Ast::SsaBuilder:D $b,
     Quartzc::Ast::ReturnStatement:D $q,
     --> Earthc::Ast::Value:D
 )

@@ -20,7 +20,7 @@ multi translate(Str:D $name, Earthc::Ast::SubroutineDefinition:D $e)
     say qq｢function {mangle $name}()｣;
 
     # First declare all registers.
-    for $e.body.basic-blocks.values.map(|*.instructions».key) {
+    for $e.body.basic-blocks.values.map(|*.instructions».key).sort {
         say qq｢    local {mangle $_}｣;
     }
 
@@ -38,6 +38,22 @@ multi translate(Int:D $id, Earthc::Ast::CallInstruction:D $e)
 {
     my $arguments = $e.arguments.map(&translate).join(｢, ｣);
     say qq｢    {mangle $id} = {mangle $e.callee}($arguments)｣;
+}
+
+multi translate(Int:D $id, Earthc::Ast::ConditionalBranchInstruction:D $e)
+    is export
+{
+    say qq｢    if {translate $e.condition} then｣;
+    say qq｢        goto {mangle $e.if-true}｣;
+    say qq｢    else｣;
+    say qq｢        goto {mangle $e.if-false}｣;
+    say qq｢    end｣;
+}
+
+multi translate(Int:D $id, Earthc::Ast::UnconditionalBranchInstruction:D $e)
+    is export
+{
+    say qq｢    goto {mangle $e.target}｣;
 }
 
 multi translate(Int:D $id, Earthc::Ast::ReturnInstruction:D $e)
@@ -69,9 +85,7 @@ multi translate(Earthc::Ast::BlobValue:D $e --> Str:D)
 multi translate(Earthc::Ast::Ssa:D $e --> Nil)
     is export
 {
-    for $e.basic-blocks.kv -> $k, $v {
-        translate $k, $v;
-    }
+    translate .key, .value for $e.basic-blocks.sort(*.key);
 }
 
 multi translate(Int:D $id, Earthc::Ast::BasicBlock:D $e)

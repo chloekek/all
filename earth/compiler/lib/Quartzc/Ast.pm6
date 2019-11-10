@@ -1,6 +1,7 @@
 unit module Quartzc::Ast;
 
 class Block {…}
+role Expression {…}
 
 ################################################################################
 # Definitions
@@ -29,6 +30,14 @@ class ExpressionStatement
     does Statement
 {
     has $.expression;
+}
+
+class IfStatement
+    does Statement
+{
+    has Expression $.condition;
+    has Block      $.if-true;
+    has Block      $.if-false;
 }
 
 class ReturnStatement

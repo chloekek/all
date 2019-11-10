@@ -69,6 +69,20 @@ class CallInstruction
     has Value:D @.arguments;
 }
 
+class ConditionalBranchInstruction
+    does Instruction
+{
+    has Value $.condition;
+    has Int   $.if-true;
+    has Int   $.if-false;
+}
+
+class UnconditionalBranchInstruction
+    does Instruction
+{
+    has Int $.target;
+}
+
 class ReturnInstruction
     does Instruction
 {
@@ -129,6 +143,18 @@ class SsaBuilder
         $!ssa.basic-blocks{$!next++} = $!current;
     }
 
+    method new-block(::?CLASS:D: --> Int:D)
+    {
+        my $id = $!next++;
+        $!ssa.basic-blocks{$id} = BasicBlock.new;
+        $id;
+    }
+
+    method set-block(::?CLASS:D: Int:D $id --> Nil)
+    {
+        $!current = $!ssa.basic-blocks{$id};
+    }
+
     method !build(::?CLASS:D: Instruction:D $instruction --> Value:D)
     {
         my $register = $!next++;
@@ -140,6 +166,27 @@ class SsaBuilder
     {
         # TODO: Insert coercions.
         my $instruction = CallInstruction.new(:$callee, :@arguments);
+        self!build($instruction);
+    }
+
+    method build-conditional-branch(
+        ::?CLASS:D:
+        Value:D $condition,
+        Int:D   $if-true,
+        Int:D   $if-false,
+        --> Value:D
+    )
+    {
+        # TODO: Insert coercion.
+        my $instruction = ConditionalBranchInstruction.new(
+            :$condition, :$if-true, :$if-false,
+        );
+        self!build($instruction);
+    }
+
+    method build-unconditional-branch(::?CLASS:D: Int:D $target --> Value:D)
+    {
+        my $instruction = UnconditionalBranchInstruction.new(:$target);
         self!build($instruction);
     }
 
