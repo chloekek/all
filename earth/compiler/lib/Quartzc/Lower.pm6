@@ -80,6 +80,24 @@ multi lower(
     lower($d, $b, $q.block);
 }
 
+multi lower(
+    Earthc::Ast::Definitions:D $d,
+    Earthc::Ast::SsaBuilder:D $b,
+    Quartzc::Ast::StubExpression:D $q,
+    --> Earthc::Ast::Value:D
+)
+    is export
+{
+    # TODO: Include source position in message.
+    my $message = ｢Stub code executed｣.encode;
+    my @arguments = Earthc::Ast::BlobValue.new(bytes => $message);
+    given $q.which {
+        when ‘...’ { … } # TODO: Build instruction that returns error value.
+        when ‘!!!’ { $b.build-call(‘PANIC’, @arguments) }
+        when ‘???’ { $b.build-call(‘DEBUG’, @arguments) }
+    }
+}
+
 ################################################################################
 # Blocks
 

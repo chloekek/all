@@ -33,6 +33,13 @@ multi translate(Str:D $name, Earthc::Ast::SubroutineDefinition:D $e)
 ################################################################################
 # Instructions
 
+multi translate(Int:D $id, Earthc::Ast::CallInstruction:D $e)
+    is export
+{
+    my $arguments = $e.arguments.map(&translate).join(｢, ｣);
+    say qq｢    {mangle $id} = {mangle $e.callee}($arguments)｣;
+}
+
 multi translate(Int:D $id, Earthc::Ast::ReturnInstruction:D $e)
     is export
 {
@@ -49,6 +56,11 @@ multi translate(Int:D $id, Earthc::Ast::ReturnInstruction:D $e)
 multi translate(Earthc::Ast::RegisterValue:D $e --> Str:D)
 {
     mangle $e.register;
+}
+
+multi translate(Earthc::Ast::BlobValue:D $e --> Str:D)
+{
+    ｢"｣ ~ $e.bytes.map({sprintf ｢\x%02X｣, $_}).join ~ ｢"｣;
 }
 
 ################################################################################

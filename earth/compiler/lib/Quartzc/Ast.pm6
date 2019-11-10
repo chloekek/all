@@ -56,6 +56,12 @@ class DoExpression
     has Block $.block;
 }
 
+class StubExpression
+    does Expression
+{
+    has Str $.which;
+}
+
 ################################################################################
 # Blocks
 

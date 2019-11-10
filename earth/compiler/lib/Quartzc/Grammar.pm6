@@ -58,6 +58,10 @@ my grammar Grammar
         ‘do’ <block>
     }
 
+    rule expression:sym<...> { ‘...’ || ‘…’ }
+    rule expression:sym<!!!> { ‘!!!’ }
+    rule expression:sym<???> { ‘???’ }
+
     ############################################################################
     # Blocks
 
@@ -132,6 +136,14 @@ my class Actions
         make Quartzc::Ast::DoExpression.new(
             block => $<block>.made,
         );
+    }
+
+    method expression:sym<...>($/) { make self!stub(‘...’) }
+    method expression:sym<!!!>($/) { make self!stub(‘!!!’) }
+    method expression:sym<???>($/) { make self!stub(‘???’) }
+    method !stub(Str:D $which)
+    {
+        Quartzc::Ast::StubExpression.new(:$which);
     }
 
     ############################################################################

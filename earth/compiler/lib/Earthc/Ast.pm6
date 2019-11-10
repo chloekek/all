@@ -62,6 +62,13 @@ role Instruction
 {
 }
 
+class CallInstruction
+    does Instruction
+{
+    has Str     $.callee;
+    has Value:D @.arguments;
+}
+
 class ReturnInstruction
     does Instruction
 {
@@ -81,6 +88,12 @@ class RegisterValue
 {
     has Int $.register;
     # TODO: Include type of register.
+}
+
+class BlobValue
+    does Value
+{
+    has Blob $.bytes;
 }
 
 ################################################################################
@@ -121,6 +134,13 @@ class SsaBuilder
         my $register = $!next++;
         $!current.instructions.push($register => $instruction);
         RegisterValue.new(:$register);
+    }
+
+    method build-call(::?CLASS:D: Str:D $callee, @arguments --> Value:D)
+    {
+        # TODO: Insert coercions.
+        my $instruction = CallInstruction.new(:$callee, :@arguments);
+        self!build($instruction);
     }
 
     method build-return(::?CLASS:D: Value:D $value --> Value:D)
