@@ -1,0 +1,5 @@
+use Hello::Raku;
+
+sub MAIN {
+    hello-raku;
+}

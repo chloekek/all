@@ -1,0 +1,7 @@
+{
+    "name": "Hello::Raku",
+    "provides": {
+        "Hello": "lib/Hello.pm6",
+        "Hello::Raku": "lib/Hello/Raku.pm6"
+    }
+}
