@@ -40,6 +40,12 @@ class IfStatement
     has Block      $.if-false;
 }
 
+class LoopStatement
+    does Statement
+{
+    has Block $.body;
+}
+
 class ReturnStatement
     does Statement
 {

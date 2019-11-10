@@ -71,6 +71,21 @@ multi lower(
 multi lower(
     Earthc::Ast::Definitions:D $d,
     Earthc::Ast::SsaBuilder:D $b,
+    Quartzc::Ast::LoopStatement:D $q,
+    --> Earthc::Ast::Value:D
+)
+    is export
+{
+    my $loop = $b.new-block;
+    $b.build-unconditional-branch($loop);
+    $b.set-block($loop);
+    lower($d, $b, $q.body);
+    $b.build-unconditional-branch($loop);
+}
+
+multi lower(
+    Earthc::Ast::Definitions:D $d,
+    Earthc::Ast::SsaBuilder:D $b,
     Quartzc::Ast::ReturnStatement:D $q,
     --> Earthc::Ast::Value:D
 )

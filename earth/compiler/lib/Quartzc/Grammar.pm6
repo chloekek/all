@@ -45,6 +45,11 @@ my grammar Grammar
         ‘else’ $<if-false>=<block>
     }
 
+    rule statement:sym<loop>
+    {
+        ‘loop’ <block>
+    }
+
     rule statement:sym<return>
     {
         ‘return’ <expression> ‘;’
@@ -127,6 +132,13 @@ my class Actions
             condition => $<condition>.made,
             if-true   => $<if-true>.made,
             if-false  => $<if-false>.made,
+        );
+    }
+
+    method statement:sym<loop>($/)
+    {
+        make Quartzc::Ast::LoopStatement.new(
+            body => $<block>.made,
         );
     }
 
