@@ -1,131 +1,70 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>Chloé Kekoa</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amiri|PT+Serif&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka+One|Lato:700&amp;display=swap">
 <style>
-    *
-    {
-        box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
+    p { margin: 0; }
 
     body
     {
-        font-family: "PT Serif", serif;
-        font-size: 16px;
-        text-rendering: optimizeLegibility;
-
-        margin: 0;
-    }
-
-    #header
-    {
-        background-color: black;
-        background-image: url("photograph.jpg");
-        background-size: cover;
-        color: white;
-
-        height: 100vh;
-        width: 50vw;
-        position: fixed;
-
-        text-align: right;
-
-        padding: 80px 130px;
+        background: #f5b0cb;
+        color: #ffffff;
     }
 
     #logo
     {
-        color: inherit;
-
-        font-family: Amiri, serif;
-        font-size: 64px;
-        text-decoration: none;
-        text-transform: lowercase;
-    }
-
-    #content
-    {
-        background: white;
-        color: black;
+        font-family: "Fredoka One", sans-serif;
+        font-size: 120px;
 
         position: absolute;
-        left: 50vw;
+        left: 10vw;
+        top: 50vh;
+    }
 
-        padding: calc(80px + 10px) 130px;
+    #headline
+    {
+        font-family: Lato, sans-serif;
+        font-size: 34px;
+        font-weight: 700;
+
+        position: absolute;
+        left: calc(10vw + 2px);
+        top: calc(50vh + 150px);
+    }
+
+    #github, #email, #freenode
+    {
+        color: transparent;
+
+        display: block;
+        width: 48px;
+        height: 48px;
+
+        position: absolute;
+        left: calc(10vw - 48px - 20px);
+    }
+
+    #github
+    {
+        background: url("github.svg");
+        top: calc(50vh + 26px);
+    }
+
+    #email
+    {
+        background: url("email.svg");
+        top: calc(50vh + 26px + 48px + 10px + 2px);
+    }
+
+    #freenode
+    {
+        background: url("freenode.svg");
+        top: calc(50vh + 26px + 48px + 10px + 48px + 10px);
     }
 </style>
-<header id="header">
-    <a id="logo" href="index.html">Chloé Kekoa</a>
-</header>
-<section id="content">
-    <!-- <h1 class="title">Features &amp; Aspects, pt. 2</h1> -->
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-    mollis vulputate vulputate. Aenean tincidunt vulputate blandit. Class
-    aptent taciti sociosqu ad litora torquent per conubia nostra, per
-    inceptos himenaeos. Sed velit nisi, dignissim eu mi ac, vestibulum dictum
-    est. Aliquam pellentesque enim id lorem placerat condimentum quis pretium
-    lacus. Morbi eget lacus erat. Mauris nec erat ante. Sed eu eleifend
-    ligula. Cras tincidunt nulla id augue euismod, quis fermentum nibh
-    mollis.</p>
-    <p>Suspendisse rhoncus vestibulum turpis, id dictum sapien vehicula nec.
-    Suspendisse eget eleifend dolor. Sed justo leo, interdum condimentum
-    ultricies a, pretium eu orci. Ut eget feugiat tortor. Ut scelerisque at
-    nisi et malesuada. Sed imperdiet nibh neque, et volutpat est iaculis
-    congue. Aenean feugiat metus a quam gravida, eu interdum urna egestas.
-    Duis ac commodo tellus.</p>
-    <p>Duis fermentum, libero et pulvinar vehicula, tortor enim finibus elit,
-    a vulputate metus libero sit amet ante. In egestas eu tellus quis
-    consequat. Fusce ut purus turpis. Ut ultrices leo ultricies tortor
-    congue, eu tempor orci ornare. Nulla ante ligula, consectetur non metus
-    porta, gravida posuere felis. Nulla vitae lectus suscipit, consectetur
-    ipsum id, blandit lacus. Pellentesque rhoncus diam lobortis semper
-    maximus. Quisque ac turpis vitae libero condimentum pulvinar nec in
-    massa. Nam at porttitor tellus. Nam tincidunt est augue, in sollicitudin
-    nisl maximus nec. Maecenas nec consequat ipsum. In in tortor id metus
-    laoreet rutrum. Etiam scelerisque pretium ultricies. Nunc erat velit,
-    elementum ac odio sed, mattis congue metus.</p>
-    <p>Aliquam tristique sem quam, a blandit nibh rhoncus sit amet. Nam
-    rutrum nunc nec orci posuere, at convallis ligula pellentesque. Aliquam
-    scelerisque neque et ultrices dictum. Morbi nec condimentum lacus.
-    Praesent quam augue, varius vestibulum suscipit nec, efficitur ac elit.
-    Curabitur maximus nibh vitae metus vehicula blandit. Proin in neque ac
-    tortor maximus commodo eu vel quam. Phasellus fermentum vulputate est non
-    egestas. In euismod molestie felis quis placerat. Nam pretium nibh nec
-    finibus accumsan. Nullam tellus tellus, tempus ac dui pretium, varius
-    lacinia nisl. Duis suscipit, augue ut accumsan congue, turpis arcu
-    rhoncus nibh, ut vehicula urna lectus eu nunc. Nulla nec urna at diam
-    mollis convallis eget id odio. Phasellus luctus, erat ut ornare mollis,
-    est odio semper justo, a efficitur magna metus id nisl. In odio leo,
-    maximus eget augue quis, ullamcorper pellentesque lorem. Vivamus
-    sollicitudin risus ac neque vulputate pulvinar.</p>
-    <p>Sed luctus aliquam viverra. Cras nec tincidunt augue. Sed consectetur
-    tortor sit amet ultrices aliquam. Maecenas efficitur orci a eros posuere
-    fermentum accumsan quis risus. Nullam egestas et odio vulputate sodales.
-    Proin nec fringilla purus. Phasellus consequat tempus gravida. </p>
-    <p>Aliquam tristique sem quam, a blandit nibh rhoncus sit amet. Nam
-    rutrum nunc nec orci posuere, at convallis ligula pellentesque. Aliquam
-    scelerisque neque et ultrices dictum. Morbi nec condimentum lacus.
-    Praesent quam augue, varius vestibulum suscipit nec, efficitur ac elit.
-    Curabitur maximus nibh vitae metus vehicula blandit. Proin in neque ac
-    tortor maximus commodo eu vel quam. Phasellus fermentum vulputate est non
-    egestas. In euismod molestie felis quis placerat. Nam pretium nibh nec
-    finibus accumsan. Nullam tellus tellus, tempus ac dui pretium, varius
-    lacinia nisl. Duis suscipit, augue ut accumsan congue, turpis arcu
-    rhoncus nibh, ut vehicula urna lectus eu nunc. Nulla nec urna at diam
-    mollis convallis eget id odio. Phasellus luctus, erat ut ornare mollis,
-    est odio semper justo, a efficitur magna metus id nisl. In odio leo,
-    maximus eget augue quis, ullamcorper pellentesque lorem. Vivamus
-    sollicitudin risus ac neque vulputate pulvinar.</p>
-    <p>Sed luctus aliquam viverra. Cras nec tincidunt augue. Sed consectetur
-    tortor sit amet ultrices aliquam. Maecenas efficitur orci a eros posuere
-    fermentum accumsan quis risus. Nullam egestas et odio vulputate sodales.
-    Proin nec fringilla purus. Phasellus consequat tempus gravida. </p>
-    <p>Sed luctus aliquam viverra. Cras nec tincidunt augue. Sed consectetur
-    tortor sit amet ultrices aliquam. Maecenas efficitur orci a eros posuere
-    fermentum accumsan quis risus. Nullam egestas et odio vulputate sodales.
-    Proin nec fringilla purus. Phasellus consequat tempus gravida. </p>
-    <p>Sed luctus aliquam viverra. Cras nec tincidunt augue. Sed consectetur
-    tortor sit amet ultrices aliquam. Maecenas efficitur orci a eros posuere
-    fermentum accumsan quis risus. Nullam egestas et odio vulputate sodales.
-    Proin nec fringilla purus. Phasellus consequat tempus gravida. </p>
-</section>
+<p id="logo">Chloé Kekoa</p>
+<p id="headline">Software developer at heart.</p>
+<a id="github" title="GitHub" href="https://github.com/chloekek/all">GitHub</a>
+<a id="email" title="Email" href="mailto:rightfold@gmail.com">Email</a>
+<a id="freenode" title="Freenode" href="irc://irc.freenode.org/chloekek,isnick">chloekek</a>
