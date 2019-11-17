@@ -8,6 +8,9 @@ let
             # We do not want to accidentally use this old version of Rakudo. We
             # have our own Nix expression for it.
             rakudo = throw "Do not use Rakudo from Nixpkgs.";
+
+            easy-purescript-nix =
+                import ./easy-purescript-nix.nix {inherit pkgs;};
         };
     };
 in
